@@ -1,7 +1,9 @@
+import unittest
 import member
 import equipment
 import reservation
 import gym
+
 
 # member1 = member.Member('Connor B.') 
 # member1info = member1.get_info()
@@ -51,8 +53,12 @@ print(res1)
 res2 = gym.make_reservation(member2, equip2, '11:00-12:00')
 print(res2)
 
-unres1 = gym.unreserve(member1, equip1)
-print(unres1)
+info = member1.get_info()
+print(info)
+#unrestest = gym.unreserve(member3, equip2)
+#print(unrestest)
+#unres1 = gym.unreserve(member1, equip1)
+#print('unreserve', unres1)
 
 print(gym.get_reservations())
 
