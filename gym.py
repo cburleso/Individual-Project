@@ -30,8 +30,17 @@ class Gym:
             equipment.append(str(e)) # append __str__ representation (rather than memory address)
         return equipment
 
-    # returns a list of reservation instances belonging to the gym 
-    def get_reservations(self):
+    # returns a list of reservation instances belonging to the specified member instance
+    def get_reservations(self, m):
+        reservations = []
+        for r in self.reservations:
+            if r.member == m:
+                reservations.append(str(r))  # append __str__ representation (rather than memory address)
+
+        return reservations
+
+    # returns a list of all reservation instances belonging to the gym 
+    def all_reservations(self):
         reservations = []
         for r in self.reservations:
             reservations.append(str(r))  # append __str__ representation (rather than memory address)
@@ -65,6 +74,7 @@ class Gym:
                 # remove the reservation from the gym set as well as the members personal reservation set 
                 self.reservations.remove(r)
                 m.reservations.remove(r)
+                e.reserved = False  # set reserved boolean to false for the equipment instance 
                 return True
         
         return False 
