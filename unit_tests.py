@@ -145,10 +145,51 @@ class TestGym(unittest.TestCase):
         totalReservations = self.gym.all_reservations()
         self.assertEqual(len(totalReservations), 4)
 
-        # ensure there is 5 pieces of equipment available for the gym (from the 9 instances)
+        # ensure there is 4 pieces of equipment available for the gym (from the 9 instances)
         available = self.gym.get_available_equipment()
-        self.assertEqual(len(available), 5)
+        self.assertEqual(len(available), 4)
 
+    # testing method to cover getters in each of the class instances created above
+    def test_class_methods(self):
+        # ensure member class method to obtain member ID is correct 
+        member_id = self.seth.get_member_id()
+        self.assertEqual(member_id, 4)
 
+        member_id = self.mary.get_member_id()
+        self.assertEqual(member_id, 6)
+
+         # create a new reservation for Vanessa (through reservation class)
+        vr = reservation.Reservation(self.vanessa, self.resistanceBands, '9:00pm-10:00pm')
+
+        # ensure that reservation method to obtain the member instance is working properly
+        member = vr.get_member() 
+        self.assertEqual(member, self.vanessa)
+
+        # ensure the correct time is returned from the reservation instance
+        time = vr.get_time()
+        self.assertEqual(time, '9:00pm-10:00pm')
+
+        # ensure the right equipment instance is returned from the reservation getter
+        equip = vr.get_equipment()
+        self.assertEqual(equip, self.resistanceBands)
+
+        # ensure the correct type of equipment is returned from one of the instances
+        e_type = self.wobbleBoard.get_type()
+        self.assertEqual(e_type, 'Balance')
+
+        # ensure the name is obtainable from any given equipment instance
+        e_name = self.kettleBells.get_name()
+        self.assertEqual(e_name, 'Kettle Bells')
+
+        # ensure the bench press isn't reserved (was unreserved, should return False)
+        avail = self.benchPress.is_reserved()
+        self.assertFalse(avail)
+
+        # ensure the resistance bands are reserved (should return True) 
+        avail_2 = self.resistanceBands.is_reserved()
+        self.assertTrue(avail_2)
+       
+
+# call test cases 
 if __name__ == "__main__":
   unittest.main()
